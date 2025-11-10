@@ -1,0 +1,35 @@
+{% extends 'analytics/base.html' %}
+
+{% block title %}Analyze Conversations - Conversation Analytics{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1>🔍 Analyze Conversations</h1>
+    <p>Trigger analysis on your conversations</p>
+</div>
+
+<div class="analyze-section">
+    <div class="analyze-card">
+        <h2>Bulk Analysis</h2>
+        <p>Analyze all pending conversations at once</p>
+        <form method="POST" action="{% url 'trigger-analysis' %}" class="analyze-form">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-large">Analyze All Pending Conversations</button>
+        </form>
+    </div>
+
+    <div class="analyze-card">
+        <h2>Single Conversation Analysis</h2>
+        <p>Analyze a specific conversation by ID</p>
+        <form method="POST" action="{% url 'trigger-analysis' %}" class="analyze-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="conversation_id">Conversation ID:</label>
+                <input type="number" id="conversation_id" name="conversation_id" class="form-input" placeholder="Enter conversation ID">
+            </div>
+            <button type="submit" class="btn btn-primary btn-large">Analyze Conversation</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

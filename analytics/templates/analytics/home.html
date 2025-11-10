@@ -1,0 +1,61 @@
+{% extends 'analytics/base.html' %}
+
+{% block title %}Home - Conversation Analytics API{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">👋 Welcome to Conversation Analytics API</h1>
+        <p class="hero-subtitle">Automated post-conversation analysis powered by AI</p>
+        <p class="hero-description">
+            Analyze conversation quality, sentiment, empathy, and more with our advanced analytics platform.
+            Get insights into your conversations and improve engagement.
+        </p>
+    </div>
+</div>
+
+<div class="features-grid">
+    <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Analytics Dashboard</h3>
+        <p>View comprehensive analytics and metrics for all your conversations</p>
+        <a href="{% url 'dashboard' %}" class="btn btn-primary">View Dashboard</a>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3>Manage Conversations</h3>
+        <p>Upload, view, and manage your conversation data</p>
+        <a href="{% url 'conversation-list' %}" class="btn btn-primary">View Conversations</a>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <h3>Run Analysis</h3>
+        <p>Trigger analysis on your conversations and get detailed insights</p>
+        <a href="{% url 'trigger-analysis' %}" class="btn btn-primary">Analyze Now</a>
+    </div>
+</div>
+
+<div class="endpoints-section">
+    <h2>API Endpoints</h2>
+    <div class="endpoints-list">
+        <div class="endpoint-item">
+            <code class="endpoint-method">GET/POST</code>
+            <code class="endpoint-url">/api/conversations/</code>
+            <span class="endpoint-desc">Upload or view conversations</span>
+        </div>
+        <div class="endpoint-item">
+            <code class="endpoint-method">POST</code>
+            <code class="endpoint-url">/analyse/</code>
+            <span class="endpoint-desc">Trigger analysis on conversations</span>
+        </div>
+        <div class="endpoint-item">
+            <code class="endpoint-method">GET</code>
+            <code class="endpoint-url">/dashboard/</code>
+            <span class="endpoint-desc">View analytics dashboard</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,119 @@
+{% extends 'analytics/base.html' %}
+
+{% block title %}Dashboard - Conversation Analytics{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1>📊 Analytics Dashboard</h1>
+    <p>Comprehensive overview of your conversation analytics</p>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon">💬</div>
+        <div class="stat-info">
+            <h3>{{ overview.total_conversations }}</h3>
+            <p>Total Conversations</p>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-info">
+            <h3>{{ overview.analyzed }}</h3>
+            <p>Analyzed</p>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-info">
+            <h3>{{ overview.pending }}</h3>
+            <p>Pending Analysis</p>
+        </div>
+    </div>
+</div>
+
+{% if overview.analyzed > 0 %}
+<div class="metrics-section">
+    <h2>Average Scores</h2>
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <h4>Overall Score</h4>
+            <div class="score-value">{{ average_scores.avg_overall|floatformat:2 }}/10</div>
+            <div class="score-bar">
+                <div class="score-fill" style="width: {% widthratio average_scores.avg_overall 10 100 %}%"></div>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <h4>Clarity</h4>
+            <div class="score-value">{{ average_scores.avg_clarity|floatformat:2 }}</div>
+            <div class="score-bar">
+                <div class="score-fill" style="width: {% widthratio average_scores.avg_clarity 1 100 %}%"></div>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <h4>Relevance</h4>
+            <div class="score-value">{{ average_scores.avg_relevance|floatformat:2 }}</div>
+            <div class="score-bar">
+                <div class="score-fill" style="width: {% widthratio average_scores.avg_relevance 1 100 %}%"></div>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <h4>Empathy</h4>
+            <div class="score-value">{{ average_scores.avg_empathy|floatformat:2 }}</div>
+            <div class="score-bar">
+                <div class="score-fill" style="width: {% widthratio average_scores.avg_empathy 1 100 %}%"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sentiment-section">
+    <h2>Sentiment Distribution</h2>
+    <div class="sentiment-grid">
+        <div class="sentiment-card positive">
+            <h4>😊 Positive</h4>
+            <div class="sentiment-count">{{ sentiment_breakdown.positive }}</div>
+        </div>
+        <div class="sentiment-card neutral">
+            <h4>😐 Neutral</h4>
+            <div class="sentiment-count">{{ sentiment_breakdown.neutral }}</div>
+        </div>
+        <div class="sentiment-card negative">
+            <h4>😞 Negative</h4>
+            <div class="sentiment-count">{{ sentiment_breakdown.negative }}</div>
+        </div>
+        <div class="sentiment-card mixed">
+            <h4>😕 Mixed</h4>
+            <div class="sentiment-count">{{ sentiment_breakdown.mixed }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="rates-section">
+    <h2>Key Metrics</h2>
+    <div class="rates-grid">
+        <div class="rate-card">
+            <h4>Resolution Rate</h4>
+            <div class="rate-value">{{ metrics.resolution_rate }}%</div>
+        </div>
+        <div class="rate-card">
+            <h4>Escalation Rate</h4>
+            <div class="rate-value">{{ metrics.escalation_rate }}%</div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="empty-state">
+    <div class="empty-icon">📭</div>
+    <h2>No Analytics Available</h2>
+    <p>Start by analyzing some conversations to see metrics here.</p>
+    <a href="{% url 'trigger-analysis' %}" class="btn btn-primary">Analyze Conversations</a>
+</div>
+{% endif %}
+{% endblock %}
+
